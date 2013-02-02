@@ -1,0 +1,60 @@
+Copyright 2013 Bruce Ide
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-------------------------------------------------------------------
+
+This is a very simple Google Earth server that reads in an NGA ephemeris
+file for GPS satellites and plots a 12 hour chunk of their orbit on
+Google Earth. Just point this program at an ephemeris file, fire up google 
+earth, point it at the included demo.kml file and watch the orbits
+pop up! You can also point Google Earth at the included sample kml,
+which is a dump of the KML file through netcat, with the http server
+headers removed.
+
+The NGA doesn't publish current ephemeris or predicted ephemeris. The files
+usually seem to start 2 days behind current, so I just take the current
+time, subtract 2 days and then use that as the range to plot the orbit.
+If there aren't any points available for that time in the file you use,
+well, bummer!
+
+You can find the NGA ephemeris files on their web site at 
+http://earth-info.nga.mil/GandG/sathtml/PEexe.html. If you're
+not using an OS that can run an exe file, you can decompress those
+files with lharc. Just go 'lha e file.exe'. Nevermind how long it
+took me to figure THAT out...
+
+You'll need gcc 4.7 or some other c++11 compiler to compile this, as
+one of the reasons I wrote it was to play with some of their new
+features. Compiling this will require my coordinates, time and data
+libraries, also available on github.
+
+If you look at the demo code, it really wouldn't be difficult to
+plot the satellite as a point at a specific time. The only down side to 
+doing that is you can't push updates to Google Earth. You can only tell
+the KML file to refresh on a regular basis. If you do it, say, once per
+second, you can watch the satellite fly in real time, but all your points
+in the sidebar will flash every time it updates. Which is kind of annoying.
+You can separate the orbit and satellite point servers -- as far as I know
+there's no actual limit to the number of network links you can have. This
+helps a bit, because at least the orbits don't have to be recalculated every
+second, but it's still somewhat annoying.
+
+There are a lot of other refinements that can be made here; you could set
+up the server so you don't have to recalculate the orbits every time
+you get a connection, for example. It'd be very easy to set the styles
+in the ge_objects and publish the styles in the orbit server, in order
+to color code each orbit to make it easier to tell the satellites apart.
+This code is mostly here to demonstrate my coordinates library and is
+mostly cobbled together with brute force and ignorance (BFI!)
+
+

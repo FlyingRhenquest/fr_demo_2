@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Folder>
+    <name>GPS Satellites (now minus 2 Days Ago)</name>
+    <visibility>1</visibility>
+    <open>1</open>
+    <description>GPS Satellite Locations From NGA Ephemeris Files</description>
+    <NetworkLink>
+      <name>Satellites</name>
+      <visibility>1</visibility>
+      <open>1</open>
+      <description></description>
+      <refreshVisibility>0</refreshVisibility>
+      <flyToView>0</flyToView>
+      <Link>
+        <href>http://127.0.0.1:12345</href>
+      </Link>
+    </NetworkLink>
+  </Folder>
+</kml>
